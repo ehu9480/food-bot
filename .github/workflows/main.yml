@@ -1,23 +1,24 @@
-name: Run Discord Bot Script
+name: Run Discord Bot Daily
 
 on:
+  push:
   schedule:
-    - cron: '30 22 * * *' # Runs at 17:30 every day
+    - cron: '54 07 * * *'  # Runs at 17:30 UTC every day
 
 jobs:
-  run-script:
+  run-bot:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'
+        python-version: '3.8'
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install requests discord.py pytz
+        pip install discord.py requests pytz apscheduler
     - name: Run script
-      run: python DiscordBot/bot.py
+      run: python bot.py
       env:
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+
