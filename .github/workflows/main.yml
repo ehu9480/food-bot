@@ -2,7 +2,7 @@ name: Run Discord Bot Script
 
 on:
   schedule:
-    - cron: '47 07 * * *' # Runs at 17:30 every day
+    - cron: '48 07 * * *' # Runs at 17:30 every day
 
 jobs:
   run-script:
@@ -18,6 +18,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests discord.py pytz
     - name: Run script
-      run: python DiscordBot/bot.py
+      run: python bot.py
       env:
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
