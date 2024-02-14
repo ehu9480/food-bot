@@ -2,7 +2,7 @@ name: Run Discord Bot Daily
 
 on:
   schedule:
-    - cron: '05 9 * * *'  # Runs at 17:30 UTC every day
+    - cron: '27 22 * * *'  # Runs at 17:27 UTC every day
 
 jobs:
   run-bot:
