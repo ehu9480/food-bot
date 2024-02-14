@@ -9,8 +9,8 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 
 BOT_TOKEN = os.getenv('BOT_TOKEN')
-#CHANNEL_ID = 1071187673676529876
-CHANNEL_ID = 1204200927536488508 #TEST
+CHANNEL_ID = 1071187673676529876
+#CHANNEL_ID = 1204200927536488508 #TEST
 
 bot = commands.Bot(command_prefix="!", intents = discord.Intents.all())
 scheduler = AsyncIOScheduler()
