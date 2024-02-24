@@ -67,7 +67,6 @@ def fetch_dining_data():
     else:
         print("Failed to fetch data")
 
-
 async def send_daily_message():
     today = datetime.now(pytz.timezone('US/Eastern')).weekday()  # Monday is 0, Sunday is 6
     channel = bot.get_channel(CHANNEL_ID)
