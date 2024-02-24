@@ -76,11 +76,11 @@ async def send_daily_message():
         emojis = ['👍']  # List of emojis you want to react with
     else:
         message, hall_count = fetch_dining_data() 
-        message += f"\n**{hall_count+1}: Collegetown**"
+        message += f"\n**{hall_count}: Collegetown**"
         emojis = ['🕕', '🕡', '🕖']  # List of emojis you want to react with
     
     sent_message = await channel.send(message)
-    for i in hall_count:
+    for i in range(1, hall_count+1):
         await sent_message.add_reaction(dic[i])
     for emoji in emojis:
         await sent_message.add_reaction(emoji)
