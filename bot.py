@@ -63,7 +63,7 @@ def fetch_dining_data():
                                     hall_index += 1  # Increment index for next hall
                             break  # Only consider the first matching 'Dinner' event
 
-        return "\n".join(f"{menu}" for index, menu in enumerate(fin)), hall_index
+        return ("\n".join(f"{menu}" for index, menu in enumerate(fin)), hall_index)
     else:
         print("Failed to fetch data")
 
@@ -75,7 +75,8 @@ async def send_daily_message():
         message = "Keeton House Dinner at 6!"
         emojis = ['👍']  # List of emojis you want to react with
     else:
-        message, hall_count = fetch_dining_data() + f"\n**{hall_count+1}: Collegetown**"
+        message, hall_count = fetch_dining_data() 
+        message += f"\n**{hall_count+1}: Collegetown**"
         emojis = ['🕕', '🕡', '🕖']  # List of emojis you want to react with
     
     sent_message = await channel.send(message)
