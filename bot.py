@@ -9,11 +9,13 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 
 BOT_TOKEN = os.getenv('BOT_TOKEN')
-CHANNEL_ID = 1071187673676529876
-#CHANNEL_ID = 1204200927536488508 #TEST
+#CHANNEL_ID = 1071187673676529876
+CHANNEL_ID = 1204200927536488508 #TEST
+dic = {1:'1️⃣', 2:'2️⃣', 3:'3️⃣', 4:'4️⃣', 5:'5️⃣', 6:'6️⃣'}
 
 bot = commands.Bot(command_prefix="!", intents = discord.Intents.all())
 scheduler = AsyncIOScheduler()
+hall_index = 1 # Start index for numbering
 
 def fetch_dining_data():
     URL = "https://now.dining.cornell.edu/api/1.0/dining/eateries.json"
@@ -37,7 +39,7 @@ def fetch_dining_data():
                      'Quesadilla','Onion Ring']
         
         fin = []
-        hall_index = 1  # Start index for numbering
+          
         
         for hall_name in dining_halls:
             for eatery in eateries_data:
@@ -74,10 +76,12 @@ async def send_daily_message():
         message = "Keeton House Dinner at 6!"
         emojis = ['👍']  # List of emojis you want to react with
     else:
-        message = fetch_dining_data() + "\n**6: Collegetown**"
-        emojis = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '🕕', '🕡', '🕖']  # List of emojis you want to react with
+        message = fetch_dining_data() + f"\n**{hall_index+1}: Collegetown**"
+        emojis = ['🕕', '🕡', '🕖']  # List of emojis you want to react with
     
     sent_message = await channel.send(message)
+    for i in hall_index:
+        await sent_message.add_reaction(dic[i])
     for emoji in emojis:
         await sent_message.add_reaction(emoji)
 
