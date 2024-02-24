@@ -15,7 +15,7 @@ dic = {1:'1️⃣', 2:'2️⃣', 3:'3️⃣', 4:'4️⃣', 5:'5️⃣', 6:'6️�
 
 bot = commands.Bot(command_prefix="!", intents = discord.Intents.all())
 scheduler = AsyncIOScheduler()
-hall_index = 1 # Start index for numbering
+
 
 def fetch_dining_data():
     URL = "https://now.dining.cornell.edu/api/1.0/dining/eateries.json"
@@ -39,7 +39,7 @@ def fetch_dining_data():
                      'Quesadilla','Onion Ring']
         
         fin = []
-          
+        hall_index = 1 # Start index for numbering
         
         for hall_name in dining_halls:
             for eatery in eateries_data:
@@ -63,7 +63,7 @@ def fetch_dining_data():
                                     hall_index += 1  # Increment index for next hall
                             break  # Only consider the first matching 'Dinner' event
 
-        return "\n".join(f"{menu}" for index, menu in enumerate(fin))
+        return "\n".join(f"{menu}" for index, menu in enumerate(fin)), hall_index
     else:
         print("Failed to fetch data")
 
@@ -75,11 +75,11 @@ async def send_daily_message():
         message = "Keeton House Dinner at 6!"
         emojis = ['👍']  # List of emojis you want to react with
     else:
-        message = fetch_dining_data() + f"\n**{hall_index+1}: Collegetown**"
+        message, hall_count = fetch_dining_data() + f"\n**{hall_count+1}: Collegetown**"
         emojis = ['🕕', '🕡', '🕖']  # List of emojis you want to react with
     
     sent_message = await channel.send(message)
-    for i in hall_index:
+    for i in hall_count:
         await sent_message.add_reaction(dic[i])
     for emoji in emojis:
         await sent_message.add_reaction(emoji)
