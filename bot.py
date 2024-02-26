@@ -30,8 +30,7 @@ def fetch_dining_data():
             'Cook House Dining Room',
             "Jansen's Dining Room at Bethe House",
             'Keeton House Dining Room',
-            'Rose House Dining Room',
-            'Morrison Dining'
+            'Rose House Dining Room'
         ]
         
         categories = ['Grill', "Chef's Table", "Specialty Station",'Special']
