@@ -9,8 +9,8 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 
 BOT_TOKEN = os.getenv('BOT_TOKEN')
-CHANNEL_ID = 1071187673676529876
-#CHANNEL_ID = 1204200927536488508 #TEST
+#CHANNEL_ID = 1071187673676529876
+CHANNEL_ID = 1204200927536488508 #TEST
 dic = {1:'1️⃣', 2:'2️⃣', 3:'3️⃣', 4:'4️⃣', 5:'5️⃣', 6:'6️⃣', 7: '7️⃣'}
 
 bot = commands.Bot(command_prefix="!", intents = discord.Intents.all())
@@ -77,11 +77,12 @@ async def send_daily_message():
     else:
         message, hall_count = fetch_dining_data() 
         message += f"\n**{hall_count}: Collegetown**"
-        emojis = ['🕕', '🕡', '🕖']  # List of emojis you want to react with
+        emojis = []
+        for i in range(1, hall_count+1):
+            emojis.append(dic[i])
+        emojis += ['🕕', '🕡', '🕖']  # List of emojis you want to react with
     
     sent_message = await channel.send(message)
-    for i in range(1, hall_count+1):
-        await sent_message.add_reaction(dic[i])
     for emoji in emojis:
         await sent_message.add_reaction(emoji)
 
