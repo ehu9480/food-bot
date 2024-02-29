@@ -9,8 +9,8 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 
 BOT_TOKEN = os.getenv('BOT_TOKEN')
-#CHANNEL_ID = 1071187673676529876
-CHANNEL_ID = 1204200927536488508 #TEST
+CHANNEL_ID = 1071187673676529876
+#CHANNEL_ID = 1204200927536488508 #TEST
 dic = {1:'1️⃣', 2:'2️⃣', 3:'3️⃣', 4:'4️⃣', 5:'5️⃣', 6:'6️⃣', 7: '7️⃣'}
 
 bot = commands.Bot(command_prefix="!", intents = discord.Intents.all())
@@ -71,7 +71,7 @@ async def send_daily_message():
     today = datetime.now(pytz.timezone('US/Eastern')).weekday()  # Monday is 0, Sunday is 6
     channel = bot.get_channel(CHANNEL_ID)
     
-    if today == 3:  # Checks if today is Wednesday (where Monday is 0)
+    if today == 2:  # Checks if today is Wednesday (where Monday is 0)
         message = "Keeton House Dinner at 6!"
         emojis = ['👍']  # List of emojis you want to react with
     else:
