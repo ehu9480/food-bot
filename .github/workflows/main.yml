@@ -2,7 +2,7 @@ name: Run Discord Bot Daily
 
 on:
   schedule:
-    - cron: '25 22 * * *'  # Runs at around 17:30 EST every day after delay
+    - cron: '25 21 * * *'  # Runs at around 17:30 EST every day after delay
 
 jobs:
   run-bot:
@@ -20,4 +20,3 @@ jobs:
       run: python bot.py
       env:
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-
