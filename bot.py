@@ -92,6 +92,5 @@ async def send_daily_message():
 async def on_ready():
     scheduler.add_job(send_daily_message)
     scheduler.start()
-    print("Bot is ready and scheduler is running.")
   
 bot.run(BOT_TOKEN)
