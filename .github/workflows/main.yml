@@ -2,7 +2,7 @@ name: Run Discord Bot Daily
 
 on:
   schedule:
-    - cron: '25 20 * * *'  # Runs at around 17:30 EST every day after delay
+    - cron: '00 21 * * *'  # Runs at around 17:00 EST every day
   workflow_dispatch:
     inputs:
       run_bot:
