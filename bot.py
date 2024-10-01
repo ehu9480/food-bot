@@ -37,7 +37,7 @@ def fetch_dining_data():
         key_words = ['Dumpling',"Beef","Chicken","Pork","Pizza","Pasta",
                      'Mango Lassi', 'Curry', 'Fried', 'Smoothie', 'Ravioli',
                      'Quesadilla','Onion Ring',"Bread","Potato","Ham","Ramen",
-                     'Guacamole','Cheese']
+                     'Guacamole','Grilled Cheese']
         
         fin = []
         hall_index = 1 # Start index for numbering
