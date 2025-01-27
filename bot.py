@@ -36,11 +36,6 @@ def bot_should_run_today() -> bool:
     return False
 
 def fetch_dining_data():
-    """
-    Return a tuple (message, hall_count).
-      - message: str with collected dinner items from certain categories
-      - hall_count: how many halls actually had items
-    """
     URL = "https://now.dining.cornell.edu/api/1.0/dining/eateries.json"
     response = requests.get(URL)
     if response.status_code != 200:
@@ -61,19 +56,17 @@ def fetch_dining_data():
         'Rose House Dining Room'
     ]
     
-    # We only look for these categories:
     categories = ['Grill', "Chef's Table", "Specialty Station", 'Special']
-    
-    # We only keep items that contain at least one of these keywords:
     key_words = [
-        'Dumpling', "Beef", "Chicken", "Pork", "Pizza", "Pasta",
+        'Dumpling',"Beef","Chicken","Pork","Pizza","Pasta",
         'Mango Lassi', 'Curry', 'Fried', 'Smoothie', 'Ravioli',
-        'Quesadilla','Onion Ring', "Bread", "Potato", "Ham", "Ramen",
-        'Guacamole', 'Grilled Cheese'
+        'Quesadilla','Onion Ring',"Bread","Potato","Ham","Ramen",
+        'Guacamole','Grilled Cheese'
     ]
     
+    # We'll store finished strings in `fin`.
     fin = []
-    # Start hall_index at 0 so if we find no items, it remains 0
+    # Start at 0; we'll increment when we actually find items for a hall.
     hall_index = 0
     
     for hall_name in dining_halls:
@@ -81,33 +74,40 @@ def fetch_dining_data():
             if eatery['name'] == hall_name:
                 for operating_hour in eatery.get('operatingHours', []):
                     if operating_hour['date'] == current_date:
-                        # Looking specifically for "Dinner" in the events:
                         dinner_events = [
                             event for event in operating_hour.get('events', [])
                             if event['descr'] == 'Dinner'
                         ]
+                        
                         for event in dinner_events:
-                            str_build = f"**{hall_name.split(' ')[0]}:** "
-                            
+                            # Collect matching items here
                             items_added = set()
+                            
                             for menu in event.get('menu', []):
-                                # Only gather from the categories you care about
                                 if menu['category'] in categories:
                                     for item in menu.get('items', []):
-                                        # Avoid duplicates
-                                        if item['item'] not in items_added:
-                                            # If it has any of the keywords, append
-                                            if any(word in item['item'] for word in key_words):
-                                                str_build += item['item'] + ", "
-                                                items_added.add(item['item'])
+                                        # Only add if it has a keyword
+                                        if any(word in item['item'] for word in key_words):
+                                            items_added.add(item['item'])
                             
+                            # If we found any items in this hall's dinner menu:
                             if items_added:
-                                # We found actual items for this hall
-                                fin.append(str_build.rstrip(', '))
+                                # Increment hall index *before* building the string
                                 hall_index += 1
+                                
+                                # Build a single line for this hall
+                                # - We'll join the items with comma+space
+                                items_joined = ", ".join(sorted(items_added))
+                                str_build = f"**{hall_index}: {hall_name.split(' ')[0]}:** {items_joined}"
+                                
+                                # Append to final list
+                                fin.append(str_build)
+                        # Break out of the operating_hour loop
                         break
-                break  # We found the matching hall, no need to check more
+                # Break out of the eatery loop
+                break
     
+    # Return the final joined message and how many halls had items
     return ("\n".join(fin), hall_index)
 
 async def send_daily_message():
