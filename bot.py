@@ -61,7 +61,7 @@ def fetch_dining_data():
         'Dumpling',"Beef","Chicken","Pork","Pizza","Pasta",
         'Mango Lassi', 'Curry', 'Fried', 'Smoothie', 'Ravioli',
         'Quesadilla','Onion Ring',"Bread","Potato","Ham","Ramen",
-        'Guacamole','Grilled Cheese'
+        'Guacamole','Cheese', "Turkey"
     ]
     
     # We'll store finished strings in `fin`.
