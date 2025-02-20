@@ -121,11 +121,12 @@ async def send_daily_message():
     message, hall_count = fetch_dining_data()
     
     # If there's NO valid items for dinner (hall_count == 0), skip sending
-    if hall_count == 0:
+    if hall_count <= 1:
         print("No matching dinner items found; skipping message.")
         await bot.close()
         return
     
+    hall_count += 1  # For "Collegetown"
     # Otherwise, append a line for "Collegetown" at the end:
     message += f"\n**{hall_count}: Collegetown**"
     
